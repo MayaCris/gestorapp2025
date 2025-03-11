@@ -29,28 +29,17 @@ export function Menu() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/dash">
-                  DashBoard
-                </Link>
-              </li>
-              <li className="nav-item">
                 <Link className="nav-link" to="/booking">
                   Booking
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/dash">
+                  DashBoard
+                </Link>
+              </li>
             
             </ul>
-            <form className="d-flex" role="search">
-              <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button className="btn btn-outline-primary blue" type="submit">
-                Search
-              </button>
-            </form>
           </div>
         </div>
       </nav>

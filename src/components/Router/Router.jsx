@@ -4,6 +4,7 @@ import { DashBoard } from "../pages/DashBoard/Dashboard"
 import { Menu } from "../common/Menu/Menu"
 import { Booking } from "../pages/Booking/Booking"
 import { Footer } from "../common/Footer/Footer"
+import { NotFound } from "../pages/NotFound/NotFound"
 
 export function Router(){
     return(
@@ -14,6 +15,7 @@ export function Router(){
                 <Route path="/home" element={<Home/>}></Route>
                 <Route path="/dash" element={<DashBoard/>}></Route>
                 <Route path="/booking" element={<Booking/>}></Route>
+                <Route path="*" element={<NotFound />} />
             </Routes>
             <Footer></Footer>
         </>
