@@ -1,69 +1,147 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Modal, Button, Card, Row, Col, Form } from 'react-bootstrap';
 import Swal from 'sweetalert2'
+import { datosAPI } from '../DashBoard/DatosJSON';
 
-
-const espacios = [
-    {
-        id: 1,
-        nombre: "Piscina",
-        descripcion: "Amplia piscina con zonas para niños y adultos. Cuenta con sombrillas y sillas para descansar.",
-        imagen: "../../../../src/assets/img/e-piscina.jpg",
-        horarios: ["8:00 AM - 12:00 PM", "2:00 PM - 6:00 PM", "6:00 PM - 10:00 PM"]
-    },
-    {
-        id: 2,
-        nombre: "Salón Social",
-        descripcion: "Espacio ideal para reuniones y celebraciones. Capacidad para 50 personas con cocina equipada.",
-        imagen: "../../../../src/assets/img/e-salonSocial.jpg",
-        horarios: ["8:00 AM - 2:00 PM", "3:00 PM - 11:00 PM"]
-    },
-    {
-        id: 3,
-        nombre: "Cancha Deportiva",
-        descripcion: "Cancha múltiple para basketball, volleyball y fútbol sala. Iluminación nocturna disponible.",
-        imagen: "../../../../src/assets/img/e-cancha.jpg",
-        horarios: ["6:00 AM - 10:00 AM", "4:00 PM - 10:00 PM"]
-    },
-    {
-        id: 4,
-        nombre: "Zona BBQ",
-        descripcion: "Área con parrillas, mesas y sillas. Perfecto para asados familiares y reuniones al aire libre.",
-        imagen: "../../../../src/assets/img/e-bbq.jpg",
-        horarios: ["10:00 AM - 4:00 PM", "4:00 PM - 10:00 PM"]
-    }
-];
 
 
 export function Booking() {
+    const [reservation, setReservation] = useState([]);
+
     const [showModal, setShowModal] = useState(false);
     const [selectedSpace, setSelectedSpace] = useState(null);
     const [selectedDate, setSelectedDate] = useState('');
     const [selectedTime, setSelectedTime] = useState('');
+    const [availableTime, setAvailableTime] = useState([]);
+    const [currentSpace, setCurrentSpace] = useState(null);
+    const [selectedDay, setSelectedDay] = useState('');
 
-    const handleOpenModal = (espacio) => {
-        setSelectedSpace(espacio);
+    useEffect(() => {
+        const bookedReservations = localStorage.getItem('reservas');
+        if (bookedReservations) {
+            setReservation(JSON.parse(bookedReservations));
+        }
+    }, []);
+
+    useEffect(() => {
+        if (selectedDate) {
+
+            const parts = selectedDate.split('-');
+            const year = parseInt(parts[0]);
+            const month = parseInt(parts[1]) - 1; // Los meses en JS van de 0 a 11
+            const day = parseInt(parts[2]);
+
+            const dateObj = new Date(year, month, day);
+            const daysWeek = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+            const dayName = daysWeek[dateObj.getDay()];
+            setSelectedDay(dayName);
+        }
+    }, [selectedDate]);
+
+    useEffect(() => {
+        if (!currentSpace || !selectedDay || !selectedDate) {
+            setAvailableTime([]);
+            return;
+        }
+        const scheduleDay = currentSpace.horarios.find((horario) =>
+            typeof horario.dia === 'string' ? horario.dia === selectedDay : horario.dia === selectedDay);
+
+        if (!scheduleDay) {
+            setAvailableTime([]);
+            Swal.fire({
+                title: 'Lo sentimos',
+                text: 'No hay horarios disponibles para esta fecha',
+                icon: 'warning',
+            });
+            return;
+        }
+
+        let allHours = scheduleDay.franjas || [];
+        if (!allHours.length && scheduleDay.hora)
+            allHours = scheduleDay.hora.map(hora => {
+                const [inicio, fin] = hora.split(' - ');
+                return { inicio, fin };
+            });
+
+        const bookedHours = reservation.filter((r) =>
+            r.espacioId === parseInt(currentSpace) &&
+            r.fecha === selectedDate
+        ).map((r) => r.franja);
+
+        const available = allHours.filter(hour => {
+            const hourString = `${hour.inicio}-${hour.fin}`;
+            return !bookedHours.includes(hourString);
+        });
+
+        setAvailableTime(available);
+
+        if (available.length === 0) {
+            Swal.fire({
+                title: 'Lo sentimos',
+                text: 'No hay horarios disponibles para esta fecha',
+                icon: 'warning',
+            });
+        }
+    }, [currentSpace, selectedDay, selectedDate, reservation, selectedSpace]);
+
+    const createReservation = (e) => {
+        e.preventDefault();
+
+        const hourBooked = reservation.some(r =>
+            r.espacioId === parseInt(selectedSpace) &&
+            r.fecha === selectedDate &&
+            r.franja === selectedTime
+        );
+        if (hourBooked) {
+            Swal.fire({
+                title: 'Lo sentimos',
+                text: 'Este horario ya ha sido reservado',
+                icon: 'warning',
+            });
+            return;
+        }
+
+        const newReservation = {
+            id: Date.now().toString(),
+            spaceId: parseInt(selectedSpace),
+            spaceName: currentSpace.nombre,
+            date: selectedDate,
+            time: selectedTime,
+            state: 'Confirmada',
+            created: new Date().toISOString(),
+        };
+
+        const updatedReservations = [...reservation, newReservation];
+        setReservation(updatedReservations);
+        localStorage.setItem('reservas', JSON.stringify(updatedReservations));
+
+        Swal.fire({
+            title: 'Reserva confirmada',
+            text: `Tu reserva de ${currentSpace.nombre} para el \n${selectedDate}, \n${selectedTime} ha sido confirmada`,
+            icon: 'success',
+        });
+        handleCloseModal();
+    }
+
+    
+
+    const handleOpenModal = (space) => {
+        setSelectedSpace(space);
+        setCurrentSpace(space);
         setShowModal(true);
     };
 
     const handleCloseModal = () => {
         setShowModal(false);
         setSelectedSpace(null);
+        setCurrentSpace(null);
         setSelectedDate('');
         setSelectedTime('');
+        setSelectedDay('');
     };
-
-    const handleReservar = () => {
-        Swal.fire({
-            title: `Reserva confirmada: \n ${selectedSpace.nombre} para el \n${selectedDate}, \n${selectedTime}`,
-            icon: "success",
-            draggable: true
-        });
-        handleCloseModal();
-    };
+   
 
     const today = new Date().toISOString().split('T')[0];
-
     return (
 
         <div className="container py-5">
@@ -76,19 +154,19 @@ export function Booking() {
             </p>
 
             <Row xs={1} md={2} lg={3} className="g-4">
-                {espacios.map((espacio) => (
-                    <Col key={espacio.id}>
+                {datosAPI.map((space) => (
+                    <Col key={space.id}>
                         <Card className="h-100 shadow-sm">
-                            <Card.Img variant="top" src={espacio.imagen} alt={espacio.nombre} />
+                            <Card.Img variant="top" src={space.imagen} alt={space.nombre} />
                             <Card.Body>
-                                <Card.Title>{espacio.nombre}</Card.Title>
-                                <Card.Text>{espacio.descripcion}</Card.Text>
+                                <Card.Title>{space.nombre}</Card.Title>
+                                <Card.Text>{space.descripcion}</Card.Text>
                             </Card.Body>
                             <Card.Footer className="bg-white border-0">
                                 <Button
                                     variant="primary"
                                     className="w-100"
-                                    onClick={() => handleOpenModal(espacio)}
+                                    onClick={() => handleOpenModal(space)}
                                 >
                                     Agendar
                                 </Button>
@@ -135,12 +213,13 @@ export function Booking() {
                                             <Form.Select
                                                 value={selectedTime}
                                                 onChange={(e) => setSelectedTime(e.target.value)}
+                                                disabled={availableTime.length === 0}
                                                 required
                                             >
                                                 <option value="">Selecciona un horario</option>
-                                                {selectedSpace.horarios.map((horario, index) => (
-                                                    <option key={index} value={horario}>
-                                                        {horario}
+                                                {availableTime.map((time, index) => (
+                                                    <option key={index} value={`${time.inicio}-${time.fin}`}>
+                                                        {`${time.inicio} - ${time.fin}`}
                                                     </option>
                                                 ))}
                                             </Form.Select>
@@ -155,15 +234,17 @@ export function Booking() {
                             </Button>
                             <Button
                                 variant="primary"
-                                onClick={handleReservar}
-                                disabled={!selectedDate || !selectedTime}
+                                onClick={createReservation}
+                                disabled={!selectedDate || !selectedTime || !selectedSpace}
                             >
                                 Confirmar Reserva
                             </Button>
                         </Modal.Footer>
+
                     </>
                 )}
             </Modal>
+            
         </div>
     );
 }

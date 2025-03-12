@@ -151,8 +151,8 @@ export const Home = ({
                         <div className="mt-2 row py-5 ">
                             {features.map((feature) => (
                                 <div key={feature.title} className="col-md-4 text-center align-items-center justify-content-center ">
-                                    <div className="d-flex justify-content-center align-items-center bg-primary text-white rounded-circle" style={{ width: '50px', height: '50px' }}>
-                                        <feature.icon className="h-6 w-6 mx-auto my-auto" />
+                                    <div className="d-block mx-auto justify-content-center align-items-center bg-primary text-white rounded-circle" style={{ width: '50px', height: '50px' }}>
+                                        <feature.icon className="mx-auto d-blockk mt-2" />
                                     </div>
                                     <h3 className="mt-3 h5 font-weight-bold text-dark">{feature.title}</h3>
                                     <p className="mt-2 text-muted ">{feature.description}</p>
