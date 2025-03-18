@@ -38,6 +38,11 @@ export function Menu() {
                   DashBoard
                 </Link>
               </li>
+              {/* <li className="nav-item">
+                <Link className="nav-link" to="/pepe">
+                  Prueba
+                </Link>
+              </li> */}
             
             </ul>
           </div>

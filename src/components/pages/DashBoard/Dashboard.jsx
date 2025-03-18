@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Button, Card, Row, Col,  Badge, Table, } from 'react-bootstrap';
+import { Calendario } from '../../common/Calendario/Calendario';
 import Swal from 'sweetalert2'
 
 export const DashBoard=()=>{
@@ -96,6 +97,8 @@ return(
                     </Card>
                 </Col>
             </Row>
+
+            <Calendario></Calendario>
     </>
 )
 

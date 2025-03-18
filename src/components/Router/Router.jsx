@@ -5,6 +5,7 @@ import { Menu } from "../common/Menu/Menu"
 import { Booking } from "../pages/Booking/Booking"
 import { Footer } from "../common/Footer/Footer"
 import { NotFound } from "../pages/NotFound/NotFound"
+import { Prueba } from "../pages/Prueba/Prueba"
 
 export function Router(){
     return(
@@ -16,6 +17,7 @@ export function Router(){
                 <Route path="/dash" element={<DashBoard/>}></Route>
                 <Route path="/booking" element={<Booking/>}></Route>
                 <Route path="*" element={<NotFound />} />
+                <Route path="/pepe" element={<Prueba/>}></Route>
             </Routes>
             <Footer></Footer>
         </>
