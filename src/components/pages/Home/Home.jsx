@@ -1,7 +1,5 @@
 /* eslint-disable react/prop-types */
 
-// import { Banner } from "../../common/Banner/Banner"
-// import { Acerca } from "../../common/Acerca/Acerca"
 import { useNavigate } from 'react-router-dom';
 import { Calendar, Users, Sparkles } from 'lucide-react';
 
@@ -9,7 +7,6 @@ export const Home = ({
     title = "Urbanización los Pinos",
     subtitle = "Reserva tus espacios favoritos en solo unos clicks",
     backgroundImage = "../../../../src/assets/img/fp_piscina2.png",
-    //backgroundImage = "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1400&q=80",
     ctaText = "Reserva ahora",
 }) => {
     const navigate = useNavigate();
@@ -39,12 +36,12 @@ export const Home = ({
     const spaces = [
         {
             name: 'Piscina',
-            image: 'https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&q=80&w=1600',
+            image: '../../../../src/assets/img/pool.jpg',
             description: 'Piscina de tamaño olímpico con zona de descanso',
         },
         {
             name: 'Zona BBQ',
-            image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=1600',
+            image: '../../../../src/assets/img/barbecue.jpg',
             description: 'Estación de parrila moderna con espacio para comer',
         },
         {

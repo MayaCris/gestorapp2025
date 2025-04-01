@@ -6,6 +6,7 @@ import { Booking } from "../pages/Booking/Booking"
 import { Footer } from "../common/Footer/Footer"
 import { NotFound } from "../pages/NotFound/NotFound"
 import { Prueba } from "../pages/Prueba/Prueba"
+import { FormularioReserva } from "../common/FormularioReserva/FormularioReserva"
 
 export function Router(){
     return(
@@ -16,8 +17,9 @@ export function Router(){
                 <Route path="/home" element={<Home/>}></Route>
                 <Route path="/dash" element={<DashBoard/>}></Route>
                 <Route path="/booking" element={<Booking/>}></Route>
-                <Route path="*" element={<NotFound />} />
                 <Route path="/pepe" element={<Prueba/>}></Route>
+                <Route path="/formulario" element={<FormularioReserva/>}></Route>
+                <Route path="*" element={<NotFound />} />
             </Routes>
             <Footer></Footer>
         </>

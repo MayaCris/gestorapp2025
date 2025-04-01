@@ -1,54 +1,53 @@
 import { useEffect, useState } from "react";
 import { datosCalendario } from "./datosCalendario"
-import { Table } from  'react-bootstrap';
+import { Button, Card, Row, Col, Badge, Table, Container } from 'react-bootstrap';
 
-export function Calendario(){
+export function Calendario() {
 
 
     const [dias, setDias] = useState([])
     const [horas, setHoras] = useState([])
 
-    useEffect(()=> {
+    useEffect(() => {
         setDias(datosCalendario[0])
         setHoras(datosCalendario[1])
-    })
+    }, [dias, horas])
 
-    return(
+    return (
         <>
-            <Table className="">
-                <thead>
-                    <tr>
-                        <th>Hora</th>
-                        {
-                            dias.map((dia)=> {
-                                return <th> {dia}</th>
-                            })
-                        }
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th>
+            <Container style={{ marginTop: '100px' }}>
+                <h3 className="text-center">Calendario de Reservas</h3>
+                <Table className=" table table-striped table-bordered table-hover table-sm" responsive="sm"  >
+                    <caption>Calendario de Reservas</caption>
+                    <thead>
+                        <tr>
+                            <th className="text-center">Hora</th>
                             {
-                                horas.map((hora)=> {
-                                    return <tr>
-                                        <td>{hora}</td>
-                                        </tr>
-                                        {
-                                            dias.map((dia) =>{
-                                                return <tr> 
-                                                    <button clasName="btn btn-success">Reservar</button>
-                                                </tr>
-                                            })
-                                        }
+                                dias.map((dia) => {
+                                    return <th key={dia} className="text-center" > {dia}</th>
                                 })
                             }
-                        </th>
-                    </tr>
-                </tbody>
-            </Table>
-
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            horas.map((hora) => {
+                                return (
+                                    <tr key={hora}>
+                                        <td className="text-center">{hora}</td>
+                                        {dias.map((dia) => (
+                                            <td key={dia} className="text-center">
+                                                <button className="btn btn-success">Reservar</button>
+                                            </td>
+                                        ))}
+                                    </tr>
+                                );
+                            })
+                        }
+                    </tbody>
+                </Table>
+            </Container>
         </>
     )
-    
+
 }

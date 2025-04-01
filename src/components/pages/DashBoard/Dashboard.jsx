@@ -43,7 +43,9 @@ export const DashBoard=()=>{
 return(
 
     <>
-        <Row className="justify-content-center align-items-center" style={{ marginTop: '100px', marginBottom: '100px' }}>
+        <Calendario></Calendario>
+
+        <Row className="justify-content-center align-items-center" style={{ marginTop: '50px', marginBottom: '100px' }}>
                 <Col lg={6}>
                     <Card>
                         <Card.Header>
@@ -98,7 +100,6 @@ return(
                 </Col>
             </Row>
 
-            <Calendario></Calendario>
     </>
 )
 

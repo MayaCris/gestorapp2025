@@ -24,7 +24,7 @@ export let datosAPI = [
         id: 1,
         nombre: "Sala de Juntas",
         descripcion: "Sala de juntas para 8 personas",
-        imagen: "NAN",
+        imagen: "../../../../src/assets/img/sala-juntas.jpg",
         capacidad: 8,
         horarios: diasHabiles.map(dia => ({
             dia,
@@ -35,7 +35,7 @@ export let datosAPI = [
         id: 2,
         nombre: "Gimnasio",
         descripcion: "Gimnasio equipado con máquinas cardiovasculares y pesas",
-        imagen: "NAN",
+        imagen: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=1600",
         capacidad: 10,
         horarios: diasHabiles.map(dia => ({
             dia,
@@ -68,7 +68,7 @@ export let datosAPI = [
         id: 5,
         nombre: "Cancha de Squash",
         descripcion: "Cancha para jugar squash con iluminación",
-        imagen: "NAN",
+        imagen: "../../../../src/assets/img/squash.jpg",
         capacidad: 2,
         horarios: diasHabiles.map(dia => ({
             dia,
@@ -79,7 +79,7 @@ export let datosAPI = [
         id: 6,
         nombre: "Zona BBQ",
         descripcion: "Zona para asados con parrilla y mesas",
-        imagen: "../../../../src/assets/img/e-bbq.jpg",
+        imagen: "../../../../src/assets/img/barbecue.jpg",
         capacidad: 12,
         horarios: diasHabiles.map(dia => ({
             dia,
@@ -90,7 +90,7 @@ export let datosAPI = [
         id: 7,
         nombre: "Sala de Cine",
         descripcion: "Sala equipada con proyector y sonido envolvente",
-        imagen: "NAN",
+        imagen: "../../../../src/assets/img/cinema.jpg",
         capacidad: 20,
         horarios: diasHabiles.map(dia => ({
             dia,
@@ -101,7 +101,7 @@ export let datosAPI = [
         id: 8,
         nombre: "Coworking",
         descripcion: "Espacio con escritorios y Wi-Fi para trabajar",
-        imagen: "NAN",
+        imagen: "../../../../src/assets/img/coworking.jpg",
         capacidad: 8,
         horarios: diasHabiles.map(dia => ({
             dia,
@@ -118,16 +118,6 @@ export let datosAPI = [
             dia,
             franjas: franjas
         }))
-    },
-    {
-        id: 10,
-        nombre: "Parque Infantil",
-        descripcion: "Zona con columpios y toboganes para niños",
-        imagen: "NAN",
-        capacidad: 15,
-        horarios: diasHabiles.map(dia => ({
-            dia,
-            franjas: franjas
-        }))
     }
+    
 ]
