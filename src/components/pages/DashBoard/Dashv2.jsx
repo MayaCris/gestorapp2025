@@ -23,7 +23,7 @@ export function Dashv2() {
             <div className="min-vh-100 bg-light py-5">
                 <div className="container">
                     <div className="bg-white rounded shadow p-4">
-                        <h1 className="display-5 fw-bold mb-4 text-primary">Booking Dashboard</h1>
+                        <h1 className="display-5 fw-bold mb-4 text-primary">Dashboard</h1>
 
                         <div className="row mb-4">
                             <div className="col-md-6 mb-3 mb-md-0">
