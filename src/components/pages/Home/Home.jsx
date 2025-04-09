@@ -37,7 +37,7 @@ export const Home = ({
         {
             name: 'Piscina',
             image: '../../../../src/assets/img/pool.jpg',
-            description: 'Piscina de tamaño olímpico con zona de descanso',
+            description: 'Piscina semiolímpica con zona de descanso',
         },
         {
             name: 'Zona BBQ',
@@ -55,9 +55,6 @@ export const Home = ({
     return (
 
         <>
-
-            {/* <Banner></Banner>
-            <Acerca></Acerca> */}
             <div className="position-relative w-100" style={{ height: "500px" }}>
                 <div
                     className="position-absolute top-0 start-0 end-0 bottom-0"
@@ -117,25 +114,7 @@ export const Home = ({
                 ></div>
             </div>
             <div className="container" style={{ marginTop: '100px' }}>
-                {/* Hero Section */}
-                {/* <div className="text-center">
-                    <h1 className="display-4 fw-bold text-dark">
-                        Bienvenido a la <span className="text-primary">Urbanización los Pinos</span>
-                    </h1>
-                    <p className="mt-3 mx-auto lead text-muted">
-                        Gestiona las reservas de tus espacios fácilmente y disfruta con tus amigos.
-                    </p>
-                    <div className="mt-4 ">
-                        <a
-                            href="/booking"
-                            className="btn btn-primary btn-lg"
-                        >
-                            Reserva ahora
-                        </a>
-                    </div>
-                </div> */}
 
-                {/* Features Section */}
                 <div className="py-1 bg-light rounded-lg shadow-sm mt-5">
                     <div className="container">
                         <div className="text-center">
@@ -149,7 +128,7 @@ export const Home = ({
                             {features.map((feature) => (
                                 <div key={feature.title} className="col-md-4 text-center align-items-center justify-content-center ">
                                     <div className="d-block mx-auto justify-content-center align-items-center bg-primary text-white rounded-circle" style={{ width: '50px', height: '50px' }}>
-                                        <feature.icon className="mx-auto d-blockk mt-2" />
+                                        <feature.icon className="mx-auto d-block mt-2" />
                                     </div>
                                     <h3 className="mt-3 h5 font-weight-bold text-dark">{feature.title}</h3>
                                     <p className="mt-2 text-muted ">{feature.description}</p>
@@ -159,10 +138,9 @@ export const Home = ({
                     </div>
                 </div>
 
-                {/* Spaces Preview */}
                 <div className="bg-ligth rounded-lg shadow-sm overflow-hidden mt-5">
                     <div className="container py-5">
-                        <h2 className="display-5 font-weight-bold text-dark text-center">
+                        <h2 className="display-5 font-weight-bold text-primary text-center mb-5">
                             Espacios disponibles
                         </h2>
                         <div className="mt-4 row">

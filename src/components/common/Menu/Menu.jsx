@@ -34,7 +34,7 @@ export function Menu() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/dash">
+                <Link className="nav-link" to="/dashv2">
                   DashBoard
                 </Link>
               </li>
@@ -43,7 +43,11 @@ export function Menu() {
                   Formulario
                 </Link>
               </li>
-            
+              {/* <li className="nav-item">
+                <Link className="nav-link" to="/dashv2">
+                  Dashv2
+                </Link>
+              </li> */}
             </ul>
           </div>
         </div>

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 export function Footer() {
     return (
-        <footer className="bg-dark text-light py-4 mt-auto">
+        <footer className="bg-dark text-light py-4 mt-auto w-100 bottom-0">
             <div className="container">
                 <div className="row g-4">
                     <div className="col-md-4">
@@ -33,12 +33,12 @@ export function Footer() {
                         <h5 className="mb-3 text-primary">Enlaces Rápidos</h5>
                         <ul className="list-unstyled">
                             <li className="mb-2">
-                                <Link to="/espacios" className="text-light text-decoration-none hover:text-primary">
+                                <Link to="/booking" className="text-light text-decoration-none hover:text-primary">
                                     Espacios Disponibles
                                 </Link>
                             </li>
                             <li className="mb-2">
-                                <Link to="/reservas" className="text-light text-decoration-none hover:text-primary">
+                                <Link to="/dashv2" className="text-light text-decoration-none hover:text-primary">
                                     Mis Reservas
                                 </Link>
                             </li>

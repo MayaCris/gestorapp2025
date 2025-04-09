@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { datosCalendario } from "./datosCalendario"
-import { Button, Card, Row, Col, Badge, Table, Container } from 'react-bootstrap';
+import { Table, Container } from 'react-bootstrap';
+import { useNavigate } from "react-router-dom";
+import { datosAPI } from "../../pages/DashBoard/DatosJSON";
 
 export function Calendario() {
 
@@ -8,10 +10,24 @@ export function Calendario() {
     const [dias, setDias] = useState([])
     const [horas, setHoras] = useState([])
 
+    const navegador = useNavigate()
+
     useEffect(() => {
         setDias(datosCalendario[0])
         setHoras(datosCalendario[1])
-    }, [dias, horas])
+    }, [])
+
+    function crearReserva(dia, hora){
+        navegador("/formulario",{state:{dia,hora}})
+     }
+
+    function estaOcupado(dia, hora){
+        return datosAPI.some(function(espacio) {
+            return espacio.horarios.some(function(reserva) {
+                return reserva.dia === dia && reserva.franjas === hora;
+            })
+        })
+    }
 
     return (
         <>
@@ -37,7 +53,10 @@ export function Calendario() {
                                         <td className="text-center">{hora}</td>
                                         {dias.map((dia) => (
                                             <td key={dia} className="text-center">
-                                                <button className="btn btn-success">Reservar</button>
+                                                <button 
+                                                    className={`btn ${estaOcupado(dia, hora) ? "btn-danger" : "btn-success"} `}
+                                                    onClick={() => crearReserva(dia, hora)}
+                                                    >Reservar</button>
                                             </td>
                                         ))}
                                     </tr>

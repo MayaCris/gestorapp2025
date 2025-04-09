@@ -34,7 +34,7 @@ export let datosAPI = [
     {
         id: 2,
         nombre: "Gimnasio",
-        descripcion: "Gimnasio equipado con máquinas cardiovasculares y pesas",
+        descripcion: "Equipo de última generación y área de entrenamiento",
         imagen: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=1600",
         capacidad: 10,
         horarios: diasHabiles.map(dia => ({
@@ -78,7 +78,7 @@ export let datosAPI = [
     {
         id: 6,
         nombre: "Zona BBQ",
-        descripcion: "Zona para asados con parrilla y mesas",
+        descripcion: "Estación de parrila moderna con espacio para comer",
         imagen: "../../../../src/assets/img/barbecue.jpg",
         capacidad: 12,
         horarios: diasHabiles.map(dia => ({

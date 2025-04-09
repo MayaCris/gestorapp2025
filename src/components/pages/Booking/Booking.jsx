@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import { Modal, Button, Card, Row, Col, Form } from 'react-bootstrap';
 import Swal from 'sweetalert2'
 import { datosAPI } from '../DashBoard/DatosJSON';
+import { useNavigate } from "react-router-dom";
 
 
 
 export function Booking() {
     const [reservation, setReservation] = useState([]);
-
     const [showModal, setShowModal] = useState(false);
     const [selectedSpace, setSelectedSpace] = useState(null);
     const [selectedDate, setSelectedDate] = useState('');
@@ -15,6 +15,8 @@ export function Booking() {
     const [availableTime, setAvailableTime] = useState([]);
     const [currentSpace, setCurrentSpace] = useState(null);
     const [selectedDay, setSelectedDay] = useState('');
+
+    const navegador = useNavigate();
 
     useEffect(() => {
         const bookedReservations = localStorage.getItem('reservas');
@@ -30,7 +32,6 @@ export function Booking() {
             const year = parseInt(parts[0]);
             const month = parseInt(parts[1]) - 1; // Los meses en JS van de 0 a 11
             const day = parseInt(parts[2]);
-
             const dateObj = new Date(year, month, day);
             const daysWeek = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
             const dayName = daysWeek[dateObj.getDay()];
@@ -39,7 +40,7 @@ export function Booking() {
     }, [selectedDate]);
 
     useEffect(() => {
-        if (!currentSpace || !selectedDay || !selectedDate) {
+        if (!currentSpace || !selectedDate || !selectedDay) {
             setAvailableTime([]);
             return;
         }
@@ -64,9 +65,9 @@ export function Booking() {
             });
 
         const bookedHours = reservation.filter((r) =>
-            r.espacioId === parseInt(currentSpace) &&
-            r.fecha === selectedDate
-        ).map((r) => r.franja);
+            r.spaceId === parseInt(currentSpace.id) &&
+            r.date === selectedDate
+        ).map((r) => r.time);
 
         const available = allHours.filter(hour => {
             const hourString = `${hour.inicio}-${hour.fin}`;
@@ -88,9 +89,9 @@ export function Booking() {
         e.preventDefault();
 
         const hourBooked = reservation.some(r =>
-            r.espacioId === parseInt(selectedSpace) &&
-            r.fecha === selectedDate &&
-            r.franja === selectedTime
+            r.spaceId === parseInt(selectedSpace.id) &&
+            r.date === selectedDate &&
+            r.time === selectedTime
         );
         if (hourBooked) {
             Swal.fire({
@@ -103,7 +104,7 @@ export function Booking() {
 
         const newReservation = {
             id: Date.now().toString(),
-            spaceId: parseInt(selectedSpace),
+            spaceId: parseInt(selectedSpace.id),
             spaceName: currentSpace.nombre,
             date: selectedDate,
             time: selectedTime,
@@ -111,16 +112,8 @@ export function Booking() {
             created: new Date().toISOString(),
         };
 
-        const updatedReservations = [...reservation, newReservation];
-        setReservation(updatedReservations);
-        localStorage.setItem('reservas', JSON.stringify(updatedReservations));
+        navegador("/formulario",{state:{newReservation}})
 
-        Swal.fire({
-            title: 'Reserva confirmada',
-            text: `Tu reserva de ${currentSpace.nombre} para el \n${selectedDate}, \n${selectedTime} ha sido confirmada`,
-            icon: 'success',
-        });
-        handleCloseModal();
     }
 
     
@@ -129,6 +122,7 @@ export function Booking() {
         setSelectedSpace(space);
         setCurrentSpace(space);
         setShowModal(true);
+        // 
     };
 
     const handleCloseModal = () => {
@@ -147,7 +141,7 @@ export function Booking() {
         <div className="container py-5">
             <br />
             <br />
-            <h1 className="text-center mb-5">Reserva de Espacios</h1>
+            <h1 className="text-center text-primary mb-5">Reserva de Espacios</h1>
 
             <p className="text-center mb-5">
                 Aquí puedes seleccionar cada uno de los espacios y agendar tu reserva según disponibilidad.
@@ -237,7 +231,7 @@ export function Booking() {
                                 onClick={createReservation}
                                 disabled={!selectedDate || !selectedTime || !selectedSpace}
                             >
-                                Confirmar Reserva
+                                Continuar con la reserva
                             </Button>
                         </Modal.Footer>
 

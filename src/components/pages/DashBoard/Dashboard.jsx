@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Button, Card, Row, Col,  Badge, Table, } from 'react-bootstrap';
+import { Button, Card, Row, Col, Badge, Table, } from 'react-bootstrap';
 import { Calendario } from '../../common/Calendario/Calendario';
 import Swal from 'sweetalert2'
 
-export const DashBoard=()=>{
+export const DashBoard = () => {
 
     const [reservation, setReservation] = useState([]);
 
@@ -40,68 +40,67 @@ export const DashBoard=()=>{
         })
     }
 
-return(
+    return (
 
-    <>
-        <Calendario></Calendario>
-
-        <Row className="justify-content-center align-items-center" style={{ marginTop: '50px', marginBottom: '100px' }}>
-                <Col lg={6}>
-                    <Card>
-                        <Card.Header>
-                            <h4>Mis Reservas</h4>
-                        </Card.Header>
-                        <Card.Body>
-                            {reservation.length === 0 ? (
-                                <p className="text-center">No tienes reservas activas</p>
-                            ) : (
-                                <div className="table-responsive">
-                                    <Table striped bordered hover>
-                                        <thead>
-                                            <tr>
-                                                <th>Espacio</th>
-                                                <th>Fecha</th>
-                                                <th>Horario</th>
-                                                <th>Estado</th>
-                                                <th>Acciones</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {reservation
-                                                .filter(r => r.state !== 'cancelada')
-                                                .sort((a, b) => new Date(a.date) - new Date(b.date))
-                                                .map(reservation => (
-                                                    <tr key={reservation.id}>
-                                                        <td>{reservation.spaceName}</td>
-                                                        <td>{formatDate(reservation.date)}</td>
-                                                        <td>{reservation.time}</td>
-                                                        <td>
-                                                            <Badge bg={reservation.state === 'confirmada' ? 'success' : 'warning'}>
-                                                                {reservation.state}
-                                                            </Badge>
-                                                        </td>
-                                                        <td>
-                                                            <Button
-                                                                variant="danger"
-                                                                size="sm"
-                                                                onClick={() => cancelledReservation(reservation.id)}
-                                                            >
-                                                                Cancelar
-                                                            </Button>
-                                                        </td>
-                                                    </tr>
-                                                ))}
-                                        </tbody>
-                                    </Table>
-                                </div>
-                            )}
-                        </Card.Body>
-                    </Card>
-                </Col>
-            </Row>
-
-    </>
-)
+        <>
+            <div className='container-fluid py-5 d-flex flex-column justify-content-center ' style={{marginTop: '80px', marginBottom: '50px'}}>
+                <Row className="justify-content-center align-items-center" >
+                    <Col lg={6}>
+                        <Card>
+                            <Card.Header>
+                                <h4 className='text-primary'>Gestionar Reservas</h4>
+                            </Card.Header>
+                            <Card.Body>
+                                {reservation.length === 0 ? (
+                                    <p className="text-center">No tienes reservas activas</p>
+                                ) : (
+                                    <div className="table-responsive">
+                                        <Table striped bordered hover>
+                                            <thead>
+                                                <tr>
+                                                    <th>Espacio</th>
+                                                    <th>Fecha</th>
+                                                    <th>Horario</th>
+                                                    <th>Estado</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {reservation
+                                                    .filter(r => r.state !== 'cancelada')
+                                                    .sort((a, b) => new Date(a.date) - new Date(b.date))
+                                                    .map(reservation => (
+                                                        <tr key={reservation.id}>
+                                                            <td>{reservation.spaceName}</td>
+                                                            <td>{formatDate(reservation.date)}</td>
+                                                            <td>{reservation.time}</td>
+                                                            <td>
+                                                                <Badge bg={reservation.state === 'confirmada' ? 'success' : 'warning'}>
+                                                                    {reservation.state}
+                                                                </Badge>
+                                                            </td>
+                                                            <td>
+                                                                <Button
+                                                                    variant="danger"
+                                                                    size="sm"
+                                                                    onClick={() => cancelledReservation(reservation.id)}
+                                                                >
+                                                                    Cancelar
+                                                                </Button>
+                                                            </td>
+                                                        </tr>
+                                                    ))}
+                                            </tbody>
+                                        </Table>
+                                    </div>
+                                )}
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
+            </div>
+        </>
+    )
 
 }
 

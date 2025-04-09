@@ -1,18 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 /* eslint-disable react/prop-types */
-// import PropTypes from 'prop-types';
 
-// export const DashBoard=()=>{
-
-// return(
-
-//     <>
-//         <br /><br /><br /><br /><br />
-//         <h1>Holas soy el dash</h1>
-//     </>
-// )
-
-// }
 
 export const Home2 = ({
     title = "Urbanización los Pinos",
