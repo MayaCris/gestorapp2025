@@ -43,11 +43,12 @@ export function Menu() {
                   Formulario
                 </Link>
               </li>
-              {/* <li className="nav-item">
-                <Link className="nav-link" to="/dashv2">
-                  Dashv2
+              <li className="nav-item">
+                <Link className="nav-link" to="/galeria">
+                  Galeria
                 </Link>
-              </li> */}
+              </li>
+              
             </ul>
           </div>
         </div>

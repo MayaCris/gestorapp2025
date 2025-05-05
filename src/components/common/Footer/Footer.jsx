@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 export function Footer() {
     return (
-        <footer className="bg-dark text-light py-4 mt-auto w-100 bottom-0">
+        <footer className="bg-dark text-light py-3 mt-auto w-100 bottom-0">
             <div className="container">
                 <div className="row g-4">
                     <div className="col-md-4">
@@ -75,7 +75,7 @@ export function Footer() {
                         </ul>
                     </div>
                 </div>
-                <div className="row mt-4">
+                <div className="row ">
                     <div className="col-12">
                         <hr className="border-secondary" />
                         <p className="text-center mb-0">

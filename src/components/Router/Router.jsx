@@ -8,6 +8,7 @@ import { NotFound } from "../pages/NotFound/NotFound"
 import { Prueba } from "../pages/Prueba/Prueba"
 import { FormularioReserva } from "../common/FormularioReserva/FormularioReserva"
 import { Dashv2 } from "../pages/DashBoard/Dashv2"
+import { Galeria } from "../pages/Galeria/Galeria"
 
 export function Router(){
     return(
@@ -22,6 +23,7 @@ export function Router(){
                 <Route path="/pepe" element={<Prueba/>}></Route>
                 <Route path="/formulario" element={<FormularioReserva/>}></Route>
                 <Route path="/reservas" element={<FormularioReserva/>}></Route>
+                <Route path="/galeria" element={<Galeria/>}></Route>
                 <Route path="*" element={<NotFound />} />
             </Routes>
             <Footer></Footer>
